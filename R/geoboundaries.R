@@ -69,6 +69,17 @@ read_gb <- memoise(.read_gb)
 #' @return a `sf` object
 #'
 #' @export
+#' @importFrom curl has_internet
+#' @examples
+#' \dontshow{
+#' rgeoboundaries_dummy_setup()
+#' }
+#' library(rgeoboundaries)
+#' library(sf)
+#' if (curl::has_internet()) {
+#'   mli_sen <- gb_adm0(c("mali", "senegal"), type = "sscgs")
+#'   plot(st_geometry(mli_sen))
+#' }
 geoboundaries <- function(country = NULL,
                           adm_lvl = "adm0",
                           type = c("unsimplified", "simplified",
@@ -81,8 +92,19 @@ geoboundaries <- function(country = NULL,
                           version = deprecated()) {
 
   if (lifecycle::is_present(version)) {
-    lifecycle::deprecate_warn("0.5",
-                              "rgeoboundaries::geoboundaries(version = )")
+    lifecycle::deprecate_warn(
+      when = "0.5",
+      what = "rgeoboundaries::geoboundaries(version = )")
+  }
+
+  if (!rgeoboundaries_cache_exists()) {
+    stop(
+      "cache for 'rgeoboundaries' does not exist, please create one with the R command ",
+      "`init_rgeoboundaries_cache()`.")
+  }
+
+  if (!has_internet()) {
+    stop("'rgeoboundaries' needs internet connectivity to run.")
   }
 
   type <- match.arg(type)

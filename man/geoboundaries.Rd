@@ -125,6 +125,17 @@ The following wrappers are also available:
 \item \code{gb_adm5} if available, returns the country first administrative level boundaries
 }
 }
+\examples{
+\dontshow{
+rgeoboundaries_dummy_setup()
+}
+library(rgeoboundaries)
+library(sf)
+if (curl::has_internet()) {
+  mli_sen <- gb_adm0(c("mali", "senegal"), type = "sscgs")
+  plot(st_geometry(mli_sen))
+}
+}
 \references{
 Runfola D, Anderson A, Baier H, Crittenden M, Dowker E, Fuhrig S, et al. (2020)
 geoBoundaries: A global database of political administrative boundaries.

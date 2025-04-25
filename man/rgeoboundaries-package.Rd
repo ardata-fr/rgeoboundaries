@@ -8,6 +8,14 @@
 \description{
 R client to access geoBoundaries API
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/wmgeolab/rgeoboundaries}
+  \item Report bugs at \url{https://github.com/wmgeolab/rgeoboundaries/issues}
+}
+
+}
 \author{
 \email{mail@ahmadoudicko.com}
 }
